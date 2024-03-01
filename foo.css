@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.wrapper {
+    /* border: 1px solid #888; */
+    width: 80vw;
+    height: 80vh;
+    overflow: auto;
+}
+
+.table {
+    border-collapse: collapse;
+
+    th {
+        white-space: nowrap;
+    }
+
+    .categoryheader {
+        background-color: aquamarine;
+    }
+
+    thead {
+        position: sticky;
+        top: 0;
+        background-color: #ddd;
+        z-index: 10;
+
+        tr:nth-child(2) th:not(:first-child) {
+            box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.5);
+            clip-path: inset(0 0 -10px 0);
+        }
+    }
+
+
+    td,
+    th:not(:first-child) {
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+
+    td:first-child,
+    th:first-child {
+        position: sticky;
+        left: 0;
+        background-color: #f2f2f2;
+        z-index: 3;
+    }
+
+    tr:first-child th:first-child {
+        background-color: aquamarine;
+    }
+
+    tr:nth-child(2) th:first-child {
+        background-color: #ddd;
+        box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.5);
+        clip-path: inset(0 0 -10px 0);
+    }
+
+    .openrow {
+        padding: 0;
+    }
+
+    .openrowcontent {
+        position: sticky;
+        left: 0;
+        background-color: white;
+        padding: 10px;
+        /* width should be the same as the table wrapper... dont think it can be calculated */
+        width: calc(80vw - 18px);
+    }
+}
+
+
+
+
+.stuff {
+    background-color: darkorange;
+}
+
+.things {
+    background-color: darkcyan;
+}
+
+.more {
+    background-color: hotpink;
+}
