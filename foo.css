@@ -3,40 +3,43 @@ body {
 }
 
 .wrapper {
-    /* border: 1px solid #888; */
     width: 80vw;
     height: 80vh;
     overflow: auto;
+    box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.5);
 }
 
 .table {
     border-collapse: collapse;
 
-    th {
-        white-space: nowrap;
-    }
-
-    .categoryheader {
-        background-color: aquamarine;
-    }
-
     thead {
+        white-space: nowrap;
         position: sticky;
         top: 0;
         background-color: #ddd;
         z-index: 10;
 
-        tr:nth-child(2) th:not(:first-child) {
+        tr:nth-child(2) {
+            /* doesnt work properly in safari :D */
             box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.5);
             clip-path: inset(0 0 -10px 0);
         }
     }
 
+    td,
+    th {
+        padding: 5px;
+    }
 
     td,
     th:not(:first-child) {
-        padding: 5px;
-        border: 1px solid #ccc;
+        /* doesnt work properly with chrome */
+        /* border: 1px solid #ddd; */
+    }
+
+    /* guess this is the only reliable way of setting the width to something fixed... eg if we want to resize */
+    td:nth-child(3) {
+        min-width: 500px;
     }
 
     td:first-child,
@@ -44,44 +47,44 @@ body {
         position: sticky;
         left: 0;
         background-color: #f2f2f2;
-        z-index: 3;
-    }
-
-    tr:first-child th:first-child {
-        background-color: aquamarine;
+        z-index: 5;
+        /* filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.5));
+        clip-path: inset(0px -15px 0px 0px); */
     }
 
     tr:nth-child(2) th:first-child {
         background-color: #ddd;
-        box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.5);
-        clip-path: inset(0 0 -10px 0);
     }
 
     .openrow {
         padding: 0;
+
+        .openrowcontent {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            padding: 10px;
+            /* width should be the same as the table wrapper... dont think it can be calculated */
+            width: calc(80vw - 22px);
+            border: 1px solid #eee;
+        }
+    }
+}
+
+tr:first-child {
+    .idheader {
+        background-color: aqua;
     }
 
-    .openrowcontent {
-        position: sticky;
-        left: 0;
-        background-color: white;
-        padding: 10px;
-        /* width should be the same as the table wrapper... dont think it can be calculated */
-        width: calc(80vw - 18px);
+    .stuff {
+        background-color: darkorange;
     }
-}
 
+    .things {
+        background-color: darkcyan;
+    }
 
-
-
-.stuff {
-    background-color: darkorange;
-}
-
-.things {
-    background-color: darkcyan;
-}
-
-.more {
-    background-color: hotpink;
+    .more {
+        background-color: hotpink;
+    }
 }
