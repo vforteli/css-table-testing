@@ -1,13 +1,29 @@
+:root {
+    --table-width: 80vw;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif
+
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(21, 31, 40);
+}
+
+.container {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .wrapper {
-    width: 80vw;
+    border-radius: 8px;
+    width: var(--table-width);
     height: 80vh;
     overflow: auto;
     box-shadow: 2px 2px 15px 0px rgba(0, 0, 0, 0.5);
 }
+
+
 
 .table {
     border-collapse: collapse;
@@ -26,36 +42,45 @@ body {
         }
     }
 
+    td {
+        background-color: white;
+    }
+
     td,
     th {
         padding: 5px;
     }
 
-    td,
-    th:not(:first-child) {
-        /* doesnt work properly with chrome */
-        /* border: 1px solid #ddd; */
+    /* remove outer borders from table tds so they dont interfere with sticky columns */
+    tr:first-child td {
+        border-top: none;
     }
 
-    /* guess this is the only reliable way of setting the width to something fixed... eg if we want to resize */
-    td:nth-child(3) {
-        min-width: 500px;
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    td:first-child {
+        border-left: none;
+    }
+
+    td:last-child {
+        border-right: none;
+    }
+
+    td {
+        border: 1px solid #eeeeee;
     }
 
     td:first-child,
     th:first-child {
         position: sticky;
         left: 0;
-        background-color: #f2f2f2;
         z-index: 5;
-        /* filter: drop-shadow(0px 0px 8px rgba(0, 0, 0, 0.5));
-        clip-path: inset(0px -15px 0px 0px); */
+        background-color: #eee;
     }
 
-    tr:nth-child(2) th:first-child {
-        background-color: #ddd;
-    }
-
+    /* customizations start here */
     .openrow {
         padding: 0;
 
@@ -65,26 +90,36 @@ body {
             background-color: white;
             padding: 10px;
             /* width should be the same as the table wrapper... dont think it can be calculated */
-            width: calc(80vw - 22px);
-            border: 1px solid #eee;
+            width: calc(var(--table-width) - 22px);
         }
     }
-}
 
-tr:first-child {
-    .idheader {
-        background-color: aqua;
+    /* guess this is the only reliable way of setting the width to something fixed... eg if we want to resize */
+    td:nth-child(3) {
+        min-width: 500px;
     }
 
-    .stuff {
-        background-color: darkorange;
-    }
+    tr {
+        .idheader {
+            background-color: rgb(0, 190, 255);
+        }
 
-    .things {
-        background-color: darkcyan;
-    }
+        .stuff {
+            background-color: #C653FF;
+        }
 
-    .more {
-        background-color: hotpink;
+        .things {
+            background-color: #FF39A8;
+        }
+
+        .more {
+            background-color: #ffd700;
+        }
+
+        .muted {
+            filter: brightness(115%);
+            /* border-top-left-radius: 8px;
+            border-top-right-radius: 8px; */
+        }
     }
 }
