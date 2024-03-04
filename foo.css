@@ -1,11 +1,12 @@
 :root {
     --table-width: 80vw;
+    --backgrond: rgb(21, 31, 40);
 }
 
 body {
 
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(21, 31, 40);
+    background-color: var(--backgrond)
 }
 
 .container {
@@ -40,6 +41,21 @@ body {
             box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.5);
             clip-path: inset(0 0 -10px 0);
         }
+    }
+
+    tr:first-child th {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-left: 2px solid transparent;
+        border-right: 2px solid transparent;
+    }
+
+    tr:first-child th:first-child {
+        border-left: none;
+    }
+
+    tr:first-child th:last-child {
+        border-right: none;
     }
 
     td {
