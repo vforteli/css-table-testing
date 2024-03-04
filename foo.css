@@ -43,11 +43,8 @@ body {
         }
     }
 
-    tr:first-child th {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        border-left: 2px solid transparent;
-        border-right: 2px solid transparent;
+    tr:first-child {
+        background-color: var(--backgrond);
     }
 
     tr:first-child th:first-child {
@@ -62,8 +59,15 @@ body {
         background-color: white;
     }
 
-    td,
     th {
+        padding: 0;
+    }
+
+    tr:nth-child(2) th {
+        padding: 5px;
+    }
+
+    td {
         padding: 5px;
     }
 
@@ -93,6 +97,9 @@ body {
         position: sticky;
         left: 0;
         z-index: 5;
+    }
+
+    td:first-child {
         background-color: #eee;
     }
 
@@ -110,22 +117,33 @@ body {
         }
     }
 
-    /* guess this is the only reliable way of setting the width to something fixed... eg if we want to resize */
-    td:nth-child(3) {
-        min-width: 500px;
+    tr:first-child th:first-child .test {
+        margin-left: 0;
+    }
+
+    tr:first-child th:last-child .test {
+        margin-right: 0;
+    }
+
+    .test {
+        padding: 5px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        margin-left: 1px;
+        margin-right: 1px;
     }
 
     tr {
         .idheader {
-            background-color: rgb(0, 190, 255);
+            background-color: #00beff;
         }
 
         .stuff {
-            background-color: #C653FF;
+            background-color: #c653ff;
         }
 
         .things {
-            background-color: #FF39A8;
+            background-color: #ff39a8;
         }
 
         .more {
@@ -134,8 +152,6 @@ body {
 
         .muted {
             filter: brightness(115%);
-            /* border-top-left-radius: 8px;
-            border-top-right-radius: 8px; */
         }
     }
 }
