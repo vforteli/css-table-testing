@@ -1,0 +1,128 @@
+.table {
+    border-collapse: collapse;
+
+    thead {
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+        background-color: #ddd;
+        z-index: 10;
+
+        tr:first-child {
+            background-color: var(--backgrond);
+
+            th {
+                padding: 0;
+            }
+
+            th:first-child {
+                border-left: none;
+            }
+
+            th:last-child {
+                border-right: none;
+            }
+        }
+
+        tr:nth-child(2) {
+            /* doesnt work properly in safari :D */
+            box-shadow: 0 0px 8px 1px rgba(0, 0, 0, 0.5);
+            clip-path: inset(0 0 -10px 0);
+
+            th {
+                padding: 5px;
+            }
+        }
+    }
+
+    tbody {
+        td {
+            border: 1px solid #eeeeee;
+            background-color: white;
+            padding: 5px;
+        }
+
+        td:first-child {
+            background-color: #eee;
+        }
+
+        /* remove outer borders from table tds so they dont interfere with sticky columns */
+        tr:first-child td {
+            border-top: none;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        td:first-child {
+            border-left: none;
+        }
+
+        td:last-child {
+            border-right: none;
+        }
+    }
+
+    /* make first column sticky */
+    td:first-child,
+    th:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 5;
+    }
+
+
+
+    /* customizations start here */
+    .openrow {
+        padding: 0;
+
+        .openrowcontent {
+            position: sticky;
+            left: 0;
+            background-color: white;
+            padding: 10px;
+            /* width should be the same as the table wrapper... dont think it can be calculated */
+            width: calc(var(--table-width) - 22px);
+        }
+    }
+
+    tr:first-child th:first-child .test {
+        margin-left: 0;
+    }
+
+    tr:first-child th:last-child .test {
+        margin-right: 0;
+    }
+
+    .test {
+        padding: 5px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        margin-left: 1px;
+        margin-right: 1px;
+    }
+
+    tr {
+        .idheader {
+            background-color: #00beff;
+        }
+
+        .stuff {
+            background-color: #c653ff;
+        }
+
+        .things {
+            background-color: #ff39a8;
+        }
+
+        .more {
+            background-color: #ffd700;
+        }
+
+        .muted {
+            filter: brightness(115%);
+        }
+    }
+}
