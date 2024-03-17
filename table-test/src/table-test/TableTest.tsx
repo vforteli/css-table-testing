@@ -1,26 +1,27 @@
 import React from "react";
-import { HeaderType, TableTestHeaderMemo } from "./TableTestHeader";
-import "./TableTest.scss";
 import { TableRowMemoized } from "./TableRow";
+import "./TableTest.scss";
+import { HeaderType, TableTestHeaderMemo } from "./TableTestHeader";
 
-export type TableColumn<TKey, TRow> = {
-  key: TKey;
+export type Key = string | number | symbol;
+
+export type TableColumn<TRow> = {
   value: (row: TRow) => React.ReactElement | string | number;
 };
 
-export type TableTestProps<TRow, TColKey> = {
-  header: readonly HeaderType[];
+export type TableTestProps<TRow, TColKey extends Key> = {
+  headerColumns: readonly HeaderType[];
+  columns: Record<TColKey, TableColumn<TRow>>;
   data: readonly TRow[];
-  columns: readonly TableColumn<TColKey, TRow>[];
 };
 
-const TableTest = <TRow, TColKey>(props: TableTestProps<TRow, TColKey>) => {
+const TableTest = <TRow, TColKey extends Key>(props: TableTestProps<TRow, TColKey>) => {
   return (
     <table className="table">
-      <TableTestHeaderMemo columns={props.header} />
+      <TableTestHeaderMemo columns={props.headerColumns} />
       <tbody>
         {props.data.map((row, rowIndex) => (
-          <TableRowMemoized key={`row-${rowIndex}`} columns={props.columns} row={row} />
+          <TableRowMemoized key={`row-${rowIndex}`} columns={props.columns} rowData={row} />
         ))}
       </tbody>
     </table>
