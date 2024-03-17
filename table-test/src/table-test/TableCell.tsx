@@ -1,8 +1,7 @@
-import React from "react";
-import { ReactElement } from "react";
+import React, { ReactNode } from "react";
 
 export type TableCellProps = {
-  data: ReactElement | string | number;
+  data: ReactNode;
 };
 
 const TableCell = (props: TableCellProps) => {

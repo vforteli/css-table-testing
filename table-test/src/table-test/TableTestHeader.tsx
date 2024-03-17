@@ -1,13 +1,14 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 export type HeaderType = {
-  title: string;
+  key: string;
+  title: ReactNode;
   headerColumns: readonly ColumnType[];
   className: string;
 };
 
 export type ColumnType = {
-  subTitle: string;
+  subTitle: ReactNode;
 };
 
 const TableTestHeader = (props: { columns: ReadonlyArray<HeaderType> }) => {
@@ -16,7 +17,7 @@ const TableTestHeader = (props: { columns: ReadonlyArray<HeaderType> }) => {
       <tr>
         {props.columns.map((o) => {
           return (
-            <th key={o.title} colSpan={o.headerColumns.length}>
+            <th key={o.key} colSpan={o.headerColumns.length}>
               <div className={`test ${o.className}`}>{o.title}</div>
             </th>
           );
