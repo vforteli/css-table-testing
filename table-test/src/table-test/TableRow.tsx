@@ -1,18 +1,20 @@
 import React from "react";
 import { TableCellMemoized } from "./TableCell";
-import { Key, TableColumn } from "./TableTest";
+import { ColumnGroup } from "./TableTest";
 
-export type TableRowProps<TColKey extends Key, TRow> = {
+export type TableRowProps<TColKey, TRow> = {
   rowData: TRow;
-  columns: Record<TColKey, TableColumn<TRow>>;
+  columns: readonly ColumnGroup<TColKey, TRow>[];
 };
 
-const TableRow = <TColKey extends Key, TRow>(props: TableRowProps<TColKey, TRow>) => {
+const TableRow = <TColKey, TRow>(props: TableRowProps<TColKey, TRow>) => {
   return (
     <tr>
-      {Object.entries(props.columns).map(([key, column]) => (
-        <TableCellMemoized key={`data-${key}`} data={(column as TableColumn<TRow>).value(props.rowData)} />
-      ))}
+      {props.columns
+        .flatMap((o) => o.columns)
+        .map((column) => (
+          <TableCellMemoized key={`data-${column.key}`} data={column.value(props.rowData)} />
+        ))}
     </tr>
   );
 };

@@ -1,34 +1,24 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import { ColumnGroup } from "./TableTest";
 
-export type HeaderType = {
-  key: string;
-  title: ReactNode;
-  headerColumns: readonly ColumnType[];
-  className: string;
-};
-
-export type ColumnType = {
-  subTitle: ReactNode;
-};
-
-const TableTestHeader = (props: { columns: ReadonlyArray<HeaderType> }) => {
+const TableTestHeader = <TColKey, TRow>(props: { columns: readonly ColumnGroup<TColKey, TRow>[] }) => {
   return (
     <thead>
       <tr>
-        {props.columns.map((o) => {
+        {props.columns.map((group) => {
           return (
-            <th key={o.key} colSpan={o.headerColumns.length}>
-              <div className={`test ${o.className}`}>{o.title}</div>
+            <th key={group.key} colSpan={group.columns.length}>
+              <div className={`test ${group.className}`}>{group.header}</div>
             </th>
           );
         })}
       </tr>
       <tr>
-        {props.columns.flatMap((o) =>
-          o.headerColumns.map((c, i) => {
+        {props.columns.flatMap((group) =>
+          group.columns.map((column) => {
             return (
-              <th key={`subheader-${i}-${o.title}`} className={`${o.className} muted`}>
-                {c.subTitle}
+              <th key={`subheader-${group.key}-${column.key}`} className={`${group.className} muted`}>
+                {column.header}
               </th>
             );
           }),
@@ -38,4 +28,4 @@ const TableTestHeader = (props: { columns: ReadonlyArray<HeaderType> }) => {
   );
 };
 
-export const TableTestHeaderMemo = React.memo(TableTestHeader);
+export const TableTestHeaderMemo = React.memo(TableTestHeader) as typeof TableTestHeader;

@@ -4,8 +4,7 @@ import "./App.css";
 import { FirstCell, NameCell } from "./Columns";
 import { SomeModel, modifyStuff, setSelectedId } from "./store/someTableSlice";
 import { useAppSelector } from "./store/store";
-import { TableColumn, TableTestMemo } from "./table-test/TableTest";
-import { ColumnType, HeaderType } from "./table-test/TableTestHeader";
+import { ColumnGroup, TableTestMemo } from "./table-test/TableTest";
 
 type ColumnNames = keyof SomeModel;
 
@@ -14,32 +13,49 @@ function App() {
   const selectedId = useAppSelector((s) => s.someTable.selectedId);
   const data = useAppSelector((s) => s.someTable.data);
 
-  const headerColumnsMemoized = useMemo(() => {
-    const somethingHeaderColumns = [...Array(10).keys()].map((i) => ({ subTitle: `Column ${i}` }) satisfies ColumnType);
-    return [
-      { title: "Something", key: "something", headerColumns: [{ subTitle: `Id Column` }], className: "idheader" },
-      { title: "Doo", key: "Doo", headerColumns: somethingHeaderColumns, className: "stuff" },
-      { title: "Bar", key: "Bar", headerColumns: somethingHeaderColumns, className: "things" },
-      { title: "blerp", key: "Blerp", headerColumns: somethingHeaderColumns, className: "more" },
-    ] satisfies ReadonlyArray<HeaderType>;
-  }, []);
-
-  const dataColumnsMemoized: Record<ColumnNames, TableColumn<SomeModel>> = useMemo(
-    () => ({
-      id: { value: (row) => <FirstCell row={row} /> },
-      name: { value: (row) => <NameCell row={row} /> },
-      someData: { value: (row) => row.someData },
-      moreData0: { value: (row) => row.moreData0 },
-      moreData1: { value: (row) => row.moreData1 },
-      moreData2: { value: (row) => row.moreData2 },
-      moreData3: { value: (row) => row.moreData3 },
-      moreData4: { value: (row) => row.moreData4 },
-      moreData5: { value: (row) => row.moreData5 },
-      moreData6: { value: (row) => row.moreData6 },
-      moreData7: { value: (row) => row.moreData7 },
-      moreData8: { value: (row) => row.moreData8 },
-      moreData9: { value: (row) => row.moreData9 },
-    }),
+  const cofsfsdflumns = useMemo(
+    () =>
+      [
+        {
+          key: "idheader",
+          className: "idheader",
+          header: "Something",
+          columns: [{ key: "id", header: "Id", value: (row) => <FirstCell row={row} /> }],
+        },
+        {
+          key: "stuff",
+          className: "stuff",
+          header: "Stuff",
+          columns: [
+            { key: "name", header: "Name", value: (row) => <NameCell row={row} /> },
+            { key: "someData", header: "Some data", value: (row) => row.someData },
+          ],
+        },
+        {
+          key: "things",
+          className: "things",
+          header: "Things",
+          columns: [
+            { key: "moreData0", header: "More data 0", value: (row) => row.moreData0 },
+            { key: "moreData1", header: "More data 1", value: (row) => row.moreData1 },
+            { key: "moreData2", header: "More data 2", value: (row) => row.moreData2 },
+          ],
+        },
+        {
+          key: "more",
+          className: "more",
+          header: "More",
+          columns: [
+            { key: "moreData3", header: "More data 3", value: (row) => row.moreData3 },
+            { key: "moreData4", header: "More data 4", value: (row) => row.moreData4 },
+            { key: "moreData5", header: "More data 5", value: (row) => row.moreData5 },
+            { key: "moreData6", header: "More data 6", value: (row) => row.moreData6 },
+            { key: "moreData7", header: "More data 7", value: (row) => row.moreData7 },
+            { key: "moreData8", header: "More data 8", value: (row) => row.moreData8 },
+            { key: "moreData9", header: "More data 9", value: (row) => row.moreData9 },
+          ],
+        },
+      ] satisfies ColumnGroup<ColumnNames, SomeModel>[],
     [],
   );
 
@@ -50,7 +66,7 @@ function App() {
 
       <div className="container">
         <div className="wrapper">
-          <TableTestMemo headerColumns={headerColumnsMemoized} data={data} columns={dataColumnsMemoized} />
+          <TableTestMemo data={data} columns={cofsfsdflumns} />
         </div>
       </div>
     </>
