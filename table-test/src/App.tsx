@@ -1,8 +1,11 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import "./App.css";
 import { TableColumn, TableTestMemo } from "./table-test/TableTest";
 import { ColumnType, HeaderType } from "./table-test/TableTestHeader";
 import { FirstCellMemoized } from "./FirstCell";
+import { useAppSelector } from "./store/store";
+import { useDispatch } from "react-redux";
+import { setSelectedId } from "./store/someTableSlice";
 
 export type SomeModel = {
   id: number;
@@ -35,27 +38,24 @@ const data: SomeModel[] = [...Array(testRows).keys()].map((rowIndex) => ({
 type ColumnNames = keyof SomeModel;
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [selected, setSelected] = useState<number | undefined>();
+  const dispatch = useDispatch();
+  const selectedId = useAppSelector((s) => s.someTable.selectedId);
 
   const columnsMemo: TableColumn<ColumnNames, SomeModel>[] = useMemo(() => {
     return [
       {
         key: "id",
-        value: (row) => <FirstCellMemoized row={row} isSelected={selected === row.id} setSelected={setSelected} />,
+        value: (row) => <FirstCellMemoized row={row} />,
       },
-      // { key: "name", value: (row) => row.name },
-      // { key: "someData", value: (row) => row.someData },
-      // { key: "moreData", value: (row) => row.moreData },
+      { key: "name", value: (row) => row.name },
+      { key: "someData", value: (row) => row.someData },
+      { key: "moreData", value: (row) => row.moreData },
     ];
-  }, [selected]);
+  }, []);
 
   return (
     <>
-      <input type="number" value={selected} onChange={(e) => setSelected(Number.parseInt(e.currentTarget.value))}></input>
-      <button type="button" onClick={() => setCounter((o) => o + 1)}>
-        Clicky here {counter} {selected}
-      </button>
+      <input type="number" value={selectedId} onChange={(e) => dispatch(setSelectedId(Number.parseInt(e.currentTarget.value)))}></input>
       <div className="container">
         <div className="wrapper">
           <TableTestMemo header={header} data={data} columns={columnsMemo} />

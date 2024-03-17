@@ -1,5 +1,5 @@
 import { TableColumn } from "./TableTest";
-import { TableCell } from "./TableCell";
+import { TableCellMemoized } from "./TableCell";
 import React from "react";
 
 export type TableRowProps<TColKey, TRow> = {
@@ -11,7 +11,7 @@ const TableRow = <TColKey, TRow>(props: TableRowProps<TColKey, TRow>) => {
   return (
     <tr>
       {props.columns.map((column) => (
-        <TableCell key={`data-${column.key}`} data={column.value(props.row)} />
+        <TableCellMemoized key={`data-${column.key}`} data={column.value(props.row)} />
       ))}
     </tr>
   );

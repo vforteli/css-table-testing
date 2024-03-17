@@ -1,19 +1,23 @@
 import React from "react";
 import { SomeModel } from "./App";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "./store/store";
+import { setSelectedId } from "./store/someTableSlice";
 
 export type FirstCellProps = {
-  setSelected: (selected: number) => void;
-  isSelected: boolean;
   row: SomeModel;
 };
 
-const FirstCell = ({ setSelected, isSelected, row }: FirstCellProps) => {
+const FirstCell = ({ row }: FirstCellProps) => {
+  const dispatch = useDispatch();
+  const isSelected = useAppSelector((s) => s.someTable.selectedId === row.id);
+
   return (
     <>
-      <button type="button" onClick={() => setSelected(row.id)}>
+      <button type="button" onClick={() => dispatch(setSelectedId(row.id))}>
         {row.id}
       </button>
-      {isSelected && "yup, is selected"}
+      {isSelected && "yup"}
     </>
   );
 };

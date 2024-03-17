@@ -11,7 +11,6 @@ export type ColumnType = {
 };
 
 const TableTestHeader = (props: { columns: ReadonlyArray<HeaderType> }) => {
-  console.debug("hu?");
   return (
     <thead>
       <tr>
