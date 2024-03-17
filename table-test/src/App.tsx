@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import "./App.css";
 import { TableColumn, TableTestMemo } from "./table-test/TableTest";
 import { ColumnType, HeaderType } from "./table-test/TableTestHeader";
+import { FirstCellMemoized } from "./FirstCell";
 
 export type SomeModel = {
   id: number;
@@ -41,20 +42,13 @@ function App() {
     return [
       {
         key: "id",
-        value: (row) => (
-          <>
-            <button type="button" onClick={() => setSelected(row.id)}>
-              {row.id}
-            </button>
-            {row.id === selected ? "yup, is selected" : ""}
-          </>
-        ),
+        value: (row) => <FirstCellMemoized row={row} isSelected={selected === row.id} setSelected={setSelected} />,
       },
-      { key: "name", value: (row) => row.name },
-      { key: "someData", value: (row) => row.someData },
-      { key: "moreData", value: (row) => row.moreData },
+      // { key: "name", value: (row) => row.name },
+      // { key: "someData", value: (row) => row.someData },
+      // { key: "moreData", value: (row) => row.moreData },
     ];
-  }, []);
+  }, [selected]);
 
   return (
     <>
