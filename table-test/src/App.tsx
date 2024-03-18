@@ -13,7 +13,7 @@ function App() {
   const selectedId = useAppSelector((s) => s.someTable.selectedId);
   const data = useAppSelector((s) => s.someTable.data);
 
-  const cofsfsdflumns = useMemo(
+  const columns = useMemo(
     () =>
       [
         {
@@ -66,7 +66,7 @@ function App() {
 
       <div className="container">
         <div className="wrapper">
-          <TableTestMemo data={data} columns={cofsfsdflumns} />
+          <TableTestMemo data={data} columns={columns} />
         </div>
       </div>
     </>
