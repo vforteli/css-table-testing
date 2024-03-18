@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Columns.scss";
-import { SomeModel, setSelectedId, updateName } from "./store/someTableSlice";
+import { setSelectedId, updateName } from "./store/someTableSlice";
 import { useAppSelector } from "./store/store";
+import { SomeModel } from "./store/mockData";
 
 export type CellProps = {
   row: SomeModel;
@@ -26,10 +27,15 @@ export const NameCell = React.memo(({ row }: CellProps) => {
   const dispatch = useDispatch();
   const [editMode, setEditMode] = useState(false);
   const [name, setName] = useState(row.name);
+
   const save = () => {
     dispatch(updateName({ id: row.id, name: name }));
     setEditMode(false);
   };
+
+  useEffect(() => {
+    setName(row.name);
+  }, [row.name]);
 
   return (
     <>

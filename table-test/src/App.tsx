@@ -2,9 +2,10 @@ import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
 import { FirstCell, NameCell } from "./Columns";
-import { SomeModel, modifyStuff, setSelectedId } from "./store/someTableSlice";
+import { modifyStuff, setSelectedId } from "./store/someTableSlice";
 import { useAppSelector } from "./store/store";
 import { ColumnGroup, TableTestMemo } from "./table-test/TableTest";
+import { SomeModel } from "./store/mockData";
 
 type ColumnNames = keyof SomeModel;
 
@@ -27,7 +28,7 @@ function App() {
           className: "stuff",
           header: "Stuff",
           columns: [
-            { key: "name", header: "Name", value: (row) => <NameCell row={row} /> },
+            { key: "name", minWidth: 300, header: "Name", value: (row) => <NameCell row={row} /> },
             { key: "someData", header: "Some data", value: (row) => row.someData },
           ],
         },

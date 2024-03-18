@@ -5,23 +5,19 @@ const TableTestHeader = <TColKey, TRow>(props: { columns: readonly ColumnGroup<T
   return (
     <thead>
       <tr>
-        {props.columns.map((group) => {
-          return (
-            <th key={group.key} colSpan={group.columns.length}>
-              <div className={`test ${group.className}`}>{group.header}</div>
-            </th>
-          );
-        })}
+        {props.columns.map((group) => (
+          <th key={group.key} colSpan={group.columns.length}>
+            <div className={`test ${group.className}`}>{group.header}</div>
+          </th>
+        ))}
       </tr>
       <tr>
         {props.columns.flatMap((group) =>
-          group.columns.map((column) => {
-            return (
-              <th key={`subheader-${group.key}-${column.key}`} className={`${group.className} muted`}>
-                {column.header}
-              </th>
-            );
-          }),
+          group.columns.map((column) => (
+            <th key={`subheader-${group.key}-${column.key}`} style={{ minWidth: column.minWidth }} className={`${group.className} muted`}>
+              {column.header}
+            </th>
+          )),
         )}
       </tr>
     </thead>

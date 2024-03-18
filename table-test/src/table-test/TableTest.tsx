@@ -3,9 +3,10 @@ import { TableRowMemoized } from "./TableRow";
 import "./TableTest.scss";
 import { TableTestHeaderMemo } from "./TableTestHeader";
 
-export type TableColumnn<TColKey, TRow> = {
+export type TableColumn<TColKey, TRow> = {
   key: TColKey;
   header: ReactNode;
+  minWidth?: number | undefined;
   value: (row: TRow) => ReactNode;
 };
 
@@ -13,7 +14,7 @@ export type ColumnGroup<TColKey, TRow> = {
   key: string;
   header: ReactNode;
   className: string;
-  columns: readonly TableColumnn<TColKey, TRow>[];
+  columns: readonly TableColumn<TColKey, TRow>[];
 };
 
 export type TableTestProps<TRow, TColKey> = {

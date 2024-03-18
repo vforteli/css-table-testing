@@ -15,6 +15,4 @@ type TypedCreateAsyncThunk<ThunkApiConfig extends AsyncThunkConfig> = <Returned,
   options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>,
 ) => AsyncThunk<Returned, ThunkArg, ThunkApiConfig>;
 
-export const createAppAsyncThunk: TypedCreateAsyncThunk<{
-  state: RootState;
-}> = createAsyncThunk;
+export const createAppAsyncThunk: TypedCreateAsyncThunk<{ state: RootState }> = createAsyncThunk;
