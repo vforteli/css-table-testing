@@ -1,5 +1,7 @@
 const testRows = 1000;
 
+export type ColumnNames = keyof SomeModel;
+
 export type SomeModel = {
   id: number;
   name: string;

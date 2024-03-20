@@ -1,18 +1,26 @@
-import { AsyncThunk, AsyncThunkOptions, AsyncThunkPayloadCreator, Dispatch, createAsyncThunk } from "@reduxjs/toolkit";
-import type { RootState } from "./store";
+import { AsyncThunkPayloadCreator, createAsyncThunk } from "@reduxjs/toolkit";
+import type { AppDispatch, RootState } from "./store";
 
-type AsyncThunkConfig = {
-  state?: unknown;
-  dispatch?: Dispatch;
+export const createAppAsyncThunk = createAsyncThunk.withTypes<{
+  state: RootState;
+  dispatch?: AppDispatch;
   extra?: unknown;
   rejectValue?: unknown;
   serializedErrorType?: unknown;
-};
+}>();
 
-type TypedCreateAsyncThunk<ThunkApiConfig extends AsyncThunkConfig> = <Returned, ThunkArg = void>(
+// this is kind of a middleware \o/
+export const createErrorHandlingAsyncThunk = <Returned, ThunkArg>(
   typePrefix: string,
-  payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, ThunkApiConfig>,
-  options?: AsyncThunkOptions<ThunkArg, ThunkApiConfig>,
-) => AsyncThunk<Returned, ThunkArg, ThunkApiConfig>;
-
-export const createAppAsyncThunk: TypedCreateAsyncThunk<{ state: RootState }> = createAsyncThunk;
+  payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, { state: RootState }>,
+) => {
+  return createAppAsyncThunk<Returned, ThunkArg>(typePrefix, (arg, thunkAPI) => {
+    try {
+      return payloadCreator(arg, thunkAPI);
+    } catch (err) {
+      console.debug(err);
+      console.debug("heh");
+      return thunkAPI.rejectWithValue(err);
+    }
+  });
+};

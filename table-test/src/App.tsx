@@ -1,16 +1,13 @@
 import { useMemo } from "react";
-import { useDispatch } from "react-redux";
 import "./App.css";
 import { FirstCell, NameCell } from "./Columns";
-import { modifyStuff, setSelectedId } from "./store/someTableSlice";
-import { useAppSelector } from "./store/store";
+import { ColumnNames, SomeModel } from "./store/mockData";
+import { doBlerp, doStuff, doStuffTesting, modifyStuff, setSelectedId, showNotification } from "./store/someTableSlice";
+import { useAppDispatch, useAppSelector } from "./store/store";
 import { ColumnGroup, TableTestMemo } from "./table-test/TableTest";
-import { SomeModel } from "./store/mockData";
-
-type ColumnNames = keyof SomeModel;
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const selectedId = useAppSelector((s) => s.someTable.selectedId);
   const data = useAppSelector((s) => s.someTable.data);
 
@@ -64,6 +61,10 @@ function App() {
     <>
       <input type="number" value={selectedId ?? ""} onChange={(e) => dispatch(setSelectedId(Number.parseInt(e.currentTarget.value)))}></input>
       <button onClick={() => dispatch(modifyStuff())}>Modify stuff</button>
+      <button onClick={() => dispatch(doStuff({ someParam: 5 }))}>do stuff</button>
+      <button onClick={() => dispatch(doStuffTesting({ someParam: 5 }))}>do stuff</button>
+      <button onClick={() => dispatch(showNotification({ someParam: 42 }))}>do stuff</button>
+      <button onClick={() => dispatch(doBlerp({ someParam: 42 }))}>do stuff</button>
 
       <div className="container">
         <div className="wrapper">
