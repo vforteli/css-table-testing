@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MockData, SomeModel } from "./mockData";
+import { MockData, SomeModel } from "../mockData";
 import { createAppAsyncThunk, createErrorHandlingAsyncThunk } from "./storeUtils";
 
 export type ActionType = { someParam: number };
@@ -31,14 +31,14 @@ export type SomeTableState = {
   data: SomeModel[];
 };
 
-export const initialState: SomeTableState = {
+export const initialSomeTableState: SomeTableState = {
   selectedId: undefined,
   data: MockData,
 };
 
 const slice = createSlice({
   name: "someTableSlice",
-  initialState: initialState,
+  initialState: initialSomeTableState,
   reducers: {
     setSelectedId(state, action: PayloadAction<number | undefined>) {
       state.selectedId = action.payload;

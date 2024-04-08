@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import "./Columns.scss";
 import { setSelectedId, updateName } from "./store/someTableSlice";
 import { useAppSelector } from "./store/store";
-import { SomeModel } from "./store/mockData";
+import { SomeModel } from "./mockData";
 
 export type CellProps = {
   row: SomeModel;

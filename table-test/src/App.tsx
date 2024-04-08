@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import "./App.css";
 import { FirstCell, NameCell } from "./Columns";
-import { ColumnNames, SomeModel } from "./store/mockData";
+import { ColumnNames, SomeModel } from "./mockData";
 import { doBlerp, doStuff, doStuffTesting, modifyStuff, setSelectedId, showNotification } from "./store/someTableSlice";
 import { useAppDispatch, useAppSelector } from "./store/store";
 import { ColumnGroup, TableTestMemo } from "./table-test/TableTest";
