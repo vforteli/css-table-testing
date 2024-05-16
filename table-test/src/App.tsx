@@ -62,7 +62,7 @@ function App() {
       <input type="number" value={selectedId ?? ""} onChange={(e) => dispatch(setSelectedId(Number.parseInt(e.currentTarget.value)))}></input>
       <button onClick={() => dispatch(modifyStuff())}>Modify stuff</button>
       <button onClick={() => dispatch(doStuff({ someParam: 5 }))}>do stuff</button>
-      <button onClick={() => dispatch(doStuffTesting({ someParam: 5 }))}>do stuff</button>
+      <button onClick={() => dispatch(doStuffTesting({ someParam: 5 }))}>do stuff error</button>
       <button onClick={() => dispatch(showNotification({ someParam: 42 }))}>do stuff</button>
       <button onClick={() => dispatch(doBlerp({ someParam: 42 }))}>do stuff</button>
 

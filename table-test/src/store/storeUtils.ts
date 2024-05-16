@@ -9,18 +9,34 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   serializedErrorType?: unknown;
 }>();
 
-// this is kind of a middleware \o/
+export type ThunkApiType = Parameters<Parameters<typeof createAppAsyncThunk>[1]>[1];
+
 export const createErrorHandlingAsyncThunk = <Returned, ThunkArg>(
   typePrefix: string,
   payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, { state: RootState }>,
+  errorMessage?: string,
 ) => {
-  return createAppAsyncThunk<Returned, ThunkArg>(typePrefix, (arg, thunkAPI) => {
+  return createAppAsyncThunk<Returned, ThunkArg>(typePrefix, async (arg, thunkAPI) => {
     try {
-      return payloadCreator(arg, thunkAPI);
+      return (await payloadCreator(arg, thunkAPI)) as Awaited<Returned>;
     } catch (err) {
       console.debug(err);
       console.debug("heh");
-      return thunkAPI.rejectWithValue(err);
+      console.debug(errorMessage);
+      throw err;
     }
   });
 };
+
+export function withErrorHandling<Returned, ThunkArg>(payloadCreator: AsyncThunkPayloadCreator<Returned, ThunkArg, { state: RootState }>, message?: string) {
+  return async (arg: ThunkArg, thunkAPI: ThunkApiType) => {
+    try {
+      return (await payloadCreator(arg, thunkAPI)) as Awaited<Returned>;
+    } catch (err) {
+      console.debug(err);
+      console.debug("ERROR from error handling thunkish!");
+      console.debug(message);
+      throw err;
+    }
+  };
+}

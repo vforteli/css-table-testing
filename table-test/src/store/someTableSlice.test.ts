@@ -1,11 +1,11 @@
 import { expect, test } from "vitest";
 import { setupStore } from "./store";
-import { initialSomeTableState, setSelectedId } from "./someTableSlice";
+import { dostuff, initialSomeTableState, setSelectedId } from "./someTableSlice";
 
-test("should set selectedId", () => {
+test("should set selectedId", async () => {
   const store = setupStore({ someTable: { ...initialSomeTableState, selectedId: 0 } });
 
-  store.dispatch(setSelectedId(42));
+  await store.dispatch(dostuff(42));
 
   expect(store.getState().someTable.selectedId).toEqual(42);
 });
