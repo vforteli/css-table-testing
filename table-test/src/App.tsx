@@ -1,10 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import "./App.css";
 import { FirstCell, NameCell } from "./Columns";
 import { ColumnNames, SomeModel } from "./mockData";
 import { doBlerp, doStuff, doStuffTesting, modifyStuff, setSelectedId, showNotification } from "./store/someTableSlice";
 import { useAppDispatch, useAppSelector } from "./store/store";
 import { ColumnGroup, TableTestMemo } from "./table-test/TableTest";
+import { Selectish } from "./components/Selectish";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -57,8 +58,29 @@ function App() {
     [],
   );
 
+  const [selectedKey, setSelectedKey] = useState<Optionsssss>("herp");
+  type Optionsssss = "hurr" | "durr" | "herp" | "derp";
+
+  const handleSelectishChange = (key: Optionsssss) => {
+    setSelectedKey(key);
+    console.debug(`yaaaay got key: ${key}`);
+  };
+
+  const options: { key: Optionsssss; value: string }[] = [
+    {
+      key: "derp",
+      value: "derpValue",
+    },
+    {
+      key: "herp",
+      value: "herpValue",
+    },
+  ];
+
   return (
     <>
+      <Selectish options={options} onChange={handleSelectishChange} selectedKey={selectedKey} />
+
       <input type="number" value={selectedId ?? ""} onChange={(e) => dispatch(setSelectedId(Number.parseInt(e.currentTarget.value)))}></input>
       <button onClick={() => dispatch(modifyStuff())}>Modify stuff</button>
       <button onClick={() => dispatch(doStuff({ someParam: 5 }))}>do stuff</button>
